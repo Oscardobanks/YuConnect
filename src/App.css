@@ -1,0 +1,21 @@
+.mainContainer{
+  padding: 0px 150px;
+}
+
+@media (max-width: 600px) {
+  .mainContainer{
+    padding: 0px 50px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1024px) {
+  .mainContainer{
+    padding: 0px 80px;
+  }
+}
+
+.footer-group h1{
+  padding-bottom: 20px;
+  font-size: 20px;
+  font-weight: 500;
+}
