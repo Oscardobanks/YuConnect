@@ -7,30 +7,6 @@ import Signup from "./pages/Signup";
 import Login from "./pages/login";
 import HomePage from "./pages/HomePage";
 import ErrorPage from "./pages/ErrorPage";
-import { onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
-import PropTypes from 'prop-types';
-import { auth } from "../auth/firebase";
-
-
-// Protected Route Component
-const ProtectedRoute = ({ children }) => {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return children;
-};
-
 
 
 function App() {
@@ -39,7 +15,8 @@ function App() {
       <BrowserRouter>
         <ToastContainer />
         <Routes>
-          <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<ErrorPage />} />
@@ -49,8 +26,6 @@ function App() {
   );
 }
 
-ProtectedRoute.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+// ProtectedRoute component is not needed here, so it's removed.  You can keep it separately if needed for other routes.
 
 export default App;

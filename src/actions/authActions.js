@@ -15,6 +15,7 @@ export const login = createAsyncThunk(
         credentials.email,
         credentials.password
       );
+      localStorage.setItem("user", JSON.stringify(userCredential.user));
       toast.success("User Logged in Successfully!!");
       return userCredential.user;
     } catch (error) {

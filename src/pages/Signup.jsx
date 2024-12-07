@@ -48,7 +48,7 @@ const Signup = () => {
       toast.success("User Registered Successfully!!");
       setTimeout(() => {
         navigate("/home");
-      }, 3000);
+      }, 1000);
     } catch (error) {
       let errorMessage = error.message;
       if (error.code === "auth/email-already-in-use") {
@@ -98,7 +98,7 @@ const Signup = () => {
                 toast.success("User Registered Successfully!!");
                 setTimeout(() => {
                   navigate("/login");
-                }, 3000);
+                }, 1000);
                 setSubmitting(false);
               } catch (error) {
                 let errorMessage = error.message;

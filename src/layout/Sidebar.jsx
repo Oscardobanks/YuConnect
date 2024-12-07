@@ -64,7 +64,7 @@ const Sidebar = ({ active }) => {
 
   return (
     <div>
-      <div className="bg-white h-[80vh] w-60 rounded-xl">
+      <div className="bg-white h-[80vh] w-60 rounded-xl relative">
         <div className="py-10">
           <div className="relative flex flex-col gap-5 w-full">
             {sidebarItems.map((item, idx) => (
@@ -82,15 +82,15 @@ const Sidebar = ({ active }) => {
               </a>
             ))}
           </div>
-          <a
-            href="/login"
-            className="flex items-center gap-4 font-semibold absolute bottom-8 ps-8 text-[#88C2BB]"
-            onClick={handleLogout}
-          >
-            <img src="src/assets/icons/logout.svg" alt="" />
-            <p>Log out</p>
-          </a>
         </div>
+            <a
+              href="/login"
+              className="flex items-center gap-4 font-semibold absolute bottom-5 ps-8 text-[#88C2BB]"
+              onClick={handleLogout}
+            >
+              <img src="src/assets/icons/logout.svg" alt="" />
+              <p>Log out</p>
+            </a>
       </div>
     </div>
   );

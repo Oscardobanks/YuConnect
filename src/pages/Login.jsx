@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { login } from "../actions/authActions";
@@ -10,11 +10,11 @@ import signupImg from "../assets/images/signup.jpg";
 import NavbarComponent from "../layout/navbar";
 import "../styles/Signup.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import Footer from "../layout/footer";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoading } = useSelector((state) => state.auth);
 
   const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
@@ -42,6 +42,7 @@ const Login = () => {
             initialValues={{ email: "", password: "" }}
             validationSchema={validationSchema}
             onSubmit={async (values, { setSubmitting }) => {
+              setSubmitting(true);
               try {
                 const credentials = {
                   email: values.email,
@@ -55,8 +56,8 @@ const Login = () => {
                 const user = dispatch(login(credentials));
                 dispatch({ type: "UPDATE_USER", payload: user });
                 setTimeout(() => {
-                  navigate("/");
-                }, 3000);
+                  navigate("/home");
+                }, 1000);
                 setSubmitting(false);
               } catch (error) {
                 if (error.code === "auth/wrong-password") {
@@ -87,7 +88,7 @@ const Login = () => {
                       name="email"
                       id="email"
                       className="rounded w-full p-2 border border-gray-400 focus:ring-[#86d8ce] focus:border-[#86d8ce]"
-                      placeholder="Email or Phone Number"
+                      placeholder="Email Address"
                     />
                     <ErrorMessage
                       name="email"
@@ -114,10 +115,10 @@ const Login = () => {
                   <div className="flex justify-between items-center">
                     <button
                       type="submit"
-                      className="bg-[#86d8ce] hover:bg-[#9bd8d1] py-2 px-10 text-white font-semibold rounded-sm"
-                      disabled={isSubmitting || isLoading}
+                      className={`bg-[#86d8ce] hover:bg-[#9bd8d1] py-2 text-white font-semibold rounded-sm ${isSubmitting ? "px-5" : "px-10"}`}
+                      disabled={isSubmitting}
                     >
-                      {isLoading ? "Logging in...." : "Log In"}
+                      {isSubmitting ? "Logging in...." : "Log In"}
                     </button>
                     <a
                       href=""
@@ -141,6 +142,7 @@ const Login = () => {
           </Formik>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
